@@ -1,0 +1,25 @@
+[ v3_https_root ]
+basicConstraints       = critical, @https_root_basic_constraints
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always, issuer:always
+keyUsage               = critical, keyCertSign, cRLSign
+
+[ https_root_basic_constraints ]
+CA                     = true
+pathlen                = 0
+
+[ v3_https_server ]
+basicConstraints       = critical, @https_server_basic_constraints
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always, issuer:always
+keyUsage               = critical, digitalSignature, keyEncipherment, keyAgreement
+extendedKeyUsage       = critical, serverAuth
+subjectAltName         = @https_server_alt_names
+
+[ https_server_basic_constraints ]
+CA                     = false
+
+[ https_server_alt_names ]
+DNS.1                  = localhost
+DNS.2                  = host.docker.internal
+IP.1                   = 127.0.0.1
