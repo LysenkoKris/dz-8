@@ -1,7 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useStore } from "@nanostores/react";
 import { Link, useNavigate } from "react-router-dom";
-import { VERIFICATION_CODE } from "../api/mockDb";
+import { VERIFICATION_CODE } from "../constants";
 import { AuthLayout } from "../components/AuthLayout";
 import { Feedback } from "../components/Feedback";
 import { FieldError } from "../components/FieldError";
@@ -36,7 +36,7 @@ export function VerifyPage() {
   return (
     <AuthLayout
       title="Подтверждение"
-      subtitle="Введите код из письма или SMS. В моке код захардкожен."
+      subtitle="Введите код из письма или SMS."
     >
       <Feedback error={error} message={message} />
 

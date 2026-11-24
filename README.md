@@ -1,24 +1,39 @@
-# Домашнее задание 8
+# Домашнее задание 8 + 9
 
-Фронт сервиса управления пользователями: регистрация, подтверждение, логин, дашборд.
+Сервис управления пользователями: фронт + бэкенд в одной репе.
 
-Стек: React, TypeScript, Bun, Nanostores, Axios, TanStack Form.  
-API пока на моках (`localStorage`), код подтверждения: `123456`.
-
+- фронт: React, TypeScript, Bun, Nanostores, Axios, TanStack Form
+- бэкенд: Bun, TypeScript, PostgreSQL (`backend/`)
+- код подтверждения: `123456`
 
 ```bash
 bun install
+bun install --cwd backend
 ./certs/generate.sh
+```
+
+Локально (два терминала):
+
+```bash
+docker compose up -d db
+bun run migrate
+bun run dev:api
+```
+
+```bash
 bun run dev
 ```
 
-Vite: `https://localhost:5173`
+Фронт: `https://localhost:5173` (проксирует `/api` на бэкенд)  
+API: `http://localhost:8000` / `https://localhost:8443`
 
-Docker:
+Всё в Docker:
 
 ```bash
 ./certs/generate.sh
 docker compose up --build -d
 ```
 
-HTTPS: `https://localhost:8446`
+Web: `https://localhost`  
+API: `http://localhost:8000` / `https://localhost:8443`  
+Postgres: `localhost:5432`

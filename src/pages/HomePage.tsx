@@ -11,7 +11,7 @@ export function HomePage() {
         <p className="eyebrow">DZ-8</p>
         <h1>User Service</h1>
         <p className="muted">
-          Бэкенд пока замокан через axios adapter.
+          Фронт и бэкенд сервиса управления пользователями.
         </p>
         <div className="cta-row">
           {isAuthenticated ? (

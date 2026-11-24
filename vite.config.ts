@@ -13,14 +13,30 @@ const https =
       }
     : undefined;
 
+const apiTarget = process.env.VITE_API_PROXY ?? "http://localhost:8000";
+
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
     https,
+    proxy: {
+      "/api": {
+        target: apiTarget,
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   preview: {
     port: 4173,
     https,
+    proxy: {
+      "/api": {
+        target: apiTarget,
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });

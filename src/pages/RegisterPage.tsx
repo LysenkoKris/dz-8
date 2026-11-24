@@ -51,7 +51,7 @@ export function RegisterPage() {
   return (
     <AuthLayout
       title="Регистрация"
-      subtitle="Создайте аккаунт. Подтверждение — кодом из мока."
+      subtitle="Создайте аккаунт. Подтверждение — кодом из письма или SMS."
     >
       <Feedback error={error} message={message} />
       <form

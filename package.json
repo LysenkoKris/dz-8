@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "bunx --bun vite",
+    "dev:api": "bun run --cwd backend dev",
+    "migrate": "bun run --cwd backend migrate",
     "build": "tsc --noEmit && bunx --bun vite build",
-    "preview": "bunx --bun vite preview"
+    "preview": "bunx --bun vite preview",
+    "typecheck": "tsc --noEmit && bun run --cwd backend typecheck"
   },
   "dependencies": {
     "@nanostores/react": "^2.0.1",

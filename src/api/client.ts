@@ -1,9 +1,7 @@
 import axios from "axios";
-import { mockAdapter } from "./mockAdapter";
 
 export const api = axios.create({
   baseURL: "/api",
-  adapter: mockAdapter,
   headers: {
     "Content-Type": "application/json",
   },

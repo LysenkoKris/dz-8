@@ -1,9 +1,55 @@
 services:
-  dz_8:
-    image: kristina3012/dz-8:latest
-    build: .
-    container_name: dz_8
+  db:
+    image: postgres:16-alpine
+    container_name: dz_8_db
     restart: always
+    environment:
+      POSTGRES_USER: dz8
+      POSTGRES_PASSWORD: dz8
+      POSTGRES_DB: dz8
     ports:
-      - ${HTTP_PORT:-8083}:80
-      - ${HTTPS_PORT:-8446}:443
+      - ${DB_PORT:-5432}:5432
+    volumes:
+      - dz8_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dz8 -d dz8"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+  api:
+    image: kristina3012/dz-8-api:latest
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: dz_8_api
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://dz8:dz8@db:5432/dz8
+      HTTP_PORT: 80
+      HTTPS_PORT: 443
+      VERIFICATION_CODE: ${VERIFICATION_CODE:-123456}
+      CERT_KEY_PATH: /certs/server.key
+      CERT_CERT_PATH: /certs/server.crt
+    ports:
+      - ${API_HTTP_PORT:-8000}:80
+      - ${API_HTTPS_PORT:-8443}:443
+
+  web:
+    image: kristina3012/dz-8:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dz_8_web
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - ${HTTP_PORT:-80}:80
+      - ${HTTPS_PORT:-443}:443
+
+volumes:
+  dz8_pg:
